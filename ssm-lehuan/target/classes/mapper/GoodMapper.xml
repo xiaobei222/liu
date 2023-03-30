@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.aihuigou.mapper.GoodMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.aihuigou.pojo.Good">
+    <id column="good_id" jdbcType="INTEGER" property="goodId" />
+    <result column="good_name" jdbcType="VARCHAR" property="goodName" />
+    <result column="good_img" jdbcType="VARCHAR" property="goodImg" />
+    <result column="good_cost" jdbcType="INTEGER" property="goodCost" />
+    <result column="good_min_price" jdbcType="INTEGER" property="goodMinPrice" />
+    <result column="good_first_price" jdbcType="INTEGER" property="goodFirstPrice" />
+    <result column="good_second_price" jdbcType="INTEGER" property="goodSecondPrice" />
+    <result column="good_third_price" jdbcType="INTEGER" property="goodThirdPrice" />
+    <result column="good_forth_price" jdbcType="INTEGER" property="goodForthPrice" />
+    <result column="good_fifth_price" jdbcType="INTEGER" property="goodFifthPrice" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_good
+    where good_id = #{goodId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.aihuigou.pojo.Good">
+    insert into tb_good (good_id, good_name, good_img, 
+      good_cost, good_min_price, good_first_price, 
+      good_second_price, good_third_price, good_forth_price, 
+      good_fifth_price)
+    values (#{goodId,jdbcType=INTEGER}, #{goodName,jdbcType=VARCHAR}, #{goodImg,jdbcType=VARCHAR}, 
+      #{goodCost,jdbcType=INTEGER}, #{goodMinPrice,jdbcType=INTEGER}, #{goodFirstPrice,jdbcType=INTEGER}, 
+      #{goodSecondPrice,jdbcType=INTEGER}, #{goodThirdPrice,jdbcType=INTEGER}, #{goodForthPrice,jdbcType=INTEGER}, 
+      #{goodFifthPrice,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.aihuigou.pojo.Good">
+    update tb_good
+    set good_name = #{goodName,jdbcType=VARCHAR},
+      good_img = #{goodImg,jdbcType=VARCHAR},
+      good_cost = #{goodCost,jdbcType=INTEGER},
+      good_min_price = #{goodMinPrice,jdbcType=INTEGER},
+      good_first_price = #{goodFirstPrice,jdbcType=INTEGER},
+      good_second_price = #{goodSecondPrice,jdbcType=INTEGER},
+      good_third_price = #{goodThirdPrice,jdbcType=INTEGER},
+      good_forth_price = #{goodForthPrice,jdbcType=INTEGER},
+      good_fifth_price = #{goodFifthPrice,jdbcType=INTEGER}
+    where good_id = #{goodId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select good_id, good_name, good_img, good_cost, good_min_price, good_first_price, 
+    good_second_price, good_third_price, good_forth_price, good_fifth_price
+    from tb_good
+    where good_id = #{goodId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select good_id, good_name, good_img, good_cost, good_min_price, good_first_price, 
+    good_second_price, good_third_price, good_forth_price, good_fifth_price
+    from tb_good
+  </select>
+    <select id="selectGoodByCategoryIdOrBrandId"  resultMap="BaseResultMap">
+      SELECT g.*FROM tb_good g WHERE g.good_id
+       IN(SELECT bg.fk_good_id FROM tb_brand_good bg
+       WHERE bg.fk_brand_id
+      IN(
+        <if test="categoryId!=-1">
+          SELECT cb.fk_brand_id FROM tb_category_brand cb WHERE fk_category_id =#{categoryId}
+        </if>
+        <if test="brandId!=-1">
+          #{brandId}
+        </if>
+               )
+      )
+    </select>
+</mapper>

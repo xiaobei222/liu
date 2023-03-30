@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--映射：执行数据库操作的文件-->
+<mapper namespace="com.qfedu.aihuigou.mapper.SubPropertyMapper">
+
+    <resultMap id="SubResultMap" type="com.qfedu.aihuigou.pojo.SubProperty">
+        <id property="subPropertyId" column="info_detail_id"/>
+        <result property="subPropertyName" column="info_detail_name"/>
+        <result property="subPropertyDesc" column="info_detail_desc"/>
+        <association property="parProperty" javaType="com.qfedu.aihuigou.pojo.ParProperty">
+            <id column="basic_info_id" property="parPropertyId"/>
+            <result column="basic_info_name" property="parPropertyName"/>
+        </association>
+    </resultMap>
+
+    <select id="selectSubPropertyToGoodId" parameterType="integer" resultMap="SubResultMap">
+    SELECT temp.*,tbi.* FROM(
+    SELECT tid.* FROM tb_info_detail tid WHERE tid.info_detail_id IN(
+     SELECT tgd.fk_info_detail_id FROM tb_good_detail  tgd WHERE tgd.fk_good_id=#{v}
+        )
+     )temp left JOIN tb_basic_info tbi on(temp.fk_basic_info_id=tbi.basic_info_id)
+    </select>
+    <select id="selectGoodZcPrice" resultType="int">
+        select sum(good_discount) from tb_good_detail where fk_info_detail_id
+        <foreach collection="array" separator="," open="in(" close=")" item="id">
+        #{id}
+
+        </foreach>
+
+    </select>
+</mapper>

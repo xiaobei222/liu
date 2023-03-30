@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.aihuigou.mapper.BrandMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.aihuigou.pojo.Brand">
+    <id column="brand_id" jdbcType="INTEGER" property="brandId" />
+    <result column="brand_name" jdbcType="VARCHAR" property="brandName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_brand
+    where brand_id = #{brandId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.aihuigou.pojo.Brand">
+    insert into tb_brand (brand_id, brand_name)
+    values (#{brandId,jdbcType=INTEGER}, #{brandName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.aihuigou.pojo.Brand">
+    update tb_brand
+    set brand_name = #{brandName,jdbcType=VARCHAR}
+    where brand_id = #{brandId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select brand_id, brand_name
+    from tb_brand
+    where brand_id = #{brandId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select brand_id, brand_name
+    from tb_brand
+  </select>
+  <select id="selectByBrandToCategoryId" parameterType="int" resultMap="BaseResultMap">
+    SELECT b. * FROM tb_category_brand c left JOIN tb_brand b ON(c.fk_brand_id=b.brand_id)
+    WHERE c.fk_category_id=#{v}
+  </select>
+</mapper>

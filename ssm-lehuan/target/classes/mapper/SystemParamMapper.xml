@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--映射：执行数据库操作的文件-->
+<mapper namespace="com.qfedu.aihuigou.mapper.SystemParamMapper">
+    <resultMap id="ParamMapper" type="com.qfedu.aihuigou.pojo.SystemParam">
+        <id property="paramId" column="systemparam_id"/>
+        <result property="paramName" column="systemparam_name"/>
+        <result property="paramValue" column="systemparam_value"/>
+    </resultMap>
+    <select id="finaParamValueSystem" parameterType="String" resultType="String">
+    select systemparam_value from tb_systemparam where systemparam_name=#{v}
+
+    </select>
+</mapper>
