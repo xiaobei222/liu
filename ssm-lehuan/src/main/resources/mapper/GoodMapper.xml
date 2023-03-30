@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qfedu.aihuigou.mapper.GoodMapper">
-  <resultMap id="BaseResultMap" type="com.qfedu.aihuigou.pojo.Good">
+<mapper namespace="com.qfedu.lehuan.mapper.GoodMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.lehuan.pojo.Good">
     <id column="good_id" jdbcType="INTEGER" property="goodId" />
     <result column="good_name" jdbcType="VARCHAR" property="goodName" />
     <result column="good_img" jdbcType="VARCHAR" property="goodImg" />
@@ -17,7 +17,7 @@
     delete from tb_good
     where good_id = #{goodId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.qfedu.aihuigou.pojo.Good">
+  <insert id="insert" parameterType="com.qfedu.lehuan.pojo.Good">
     insert into tb_good (good_id, good_name, good_img, 
       good_cost, good_min_price, good_first_price, 
       good_second_price, good_third_price, good_forth_price, 
@@ -27,7 +27,7 @@
       #{goodSecondPrice,jdbcType=INTEGER}, #{goodThirdPrice,jdbcType=INTEGER}, #{goodForthPrice,jdbcType=INTEGER}, 
       #{goodFifthPrice,jdbcType=INTEGER})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.qfedu.aihuigou.pojo.Good">
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.lehuan.pojo.Good">
     update tb_good
     set good_name = #{goodName,jdbcType=VARCHAR},
       good_img = #{goodImg,jdbcType=VARCHAR},

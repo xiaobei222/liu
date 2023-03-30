@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
-    <context:component-scan base-package="com.qfedu.aihuigou.service"/>
+    <context:component-scan base-package="com.qfedu.lehuan.service"/>
     <context:property-placeholder location="classpath:db.properties"/>
     <bean class="com.alibaba.druid.pool.DruidDataSource" id="dataSource">
         <property name="driverClassName" value="${druid.driver}"/>
@@ -26,11 +26,11 @@
         <property name="dataSource" ref="dataSource" />
         <property name="configLocation" value="classpath:sqlMapConfig.xml"/>
         <property name="mapperLocations" value="classpath:mapper/*.xml" />
-        <property name="typeAliasesPackage" value="com.qfedu.aihuigou.pojo"/>
+        <property name="typeAliasesPackage" value="com.qfedu.lehuan.pojo"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.qfedu.aihuigou.mapper"/>
+        <property name="basePackage" value="com.qfedu.lehuan.mapper"/>
     </bean>
 
     <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
@@ -51,7 +51,7 @@
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="p" expression="execution(* com.qfedu.aihuigou.service.impl.*Impl.*(..))"/>
+        <aop:pointcut id="p" expression="execution(* com.qfedu.lehuan.service.impl.*Impl.*(..))"/>
         <aop:advisor advice-ref="myAdvice" pointcut-ref="p"/>
     </aop:config>
 

@@ -1,7 +1,7 @@
 package com.qfedu.aihuigou;
 
 
-import com.qfedu.aihuigou.service.ProperService;
+import com.qfedu.lehuan.service.ProperService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
